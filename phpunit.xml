@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- bootstrap ensures that whatever classes are in the src folder as per composer.json
+ file are autoloaded to the tests file - seems to just be for classes not files
+ Autoloader file in vendor folder was created by generating this file with command:
+ 'composer dump-autoload' -->
 <phpunit colors="true"
-         verbose="true">
+         verbose="true"
+         bootstrap="vendor/autoload.php">
     <testsuites>
         <testsuite name="Test suite">
-            // this users the folder tests\ and as all the files in that
-            // folder end with 'Test' it will work but if not you can use
-            // the suffix attribute such as the below example which runs
-            // all the .php files in that folder
+            <!-- this uses the folder tests\ and as all the files in that
+            folder end with 'Test' it will work but if you'd like to
+            name files finishing in Test they can not you can use
+            the suffix attribute such as the below example which runs
+            all the .php files in that folder -->
             <directory suffix=".php">tests</directory>
         </testsuite>
     </testsuites>
