@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit colors="true"
+         verbose="true">
+    <testsuites>
+        <testsuite name="Test suite">
+            // this users the folder tests\ and as all the files in that
+            // folder end with 'Test' it will work but if not you can use
+            // the suffix attribute such as the below example which runs
+            // all the .php files in that folder
+            <directory suffix=".php">tests</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
