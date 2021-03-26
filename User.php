@@ -1,0 +1,16 @@
+<?php
+
+/**
+ *User
+ *
+ * A user of the system
+ */
+
+class User {
+    public $first_name;
+    public $surname;
+
+    public function getFullName() {
+        return trim("$this->first_name $this->surname");
+    }
+}
