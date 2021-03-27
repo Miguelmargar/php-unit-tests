@@ -20,4 +20,8 @@
     public function getCount() {
         return count($this->items);
     }
+
+    public function clear() {
+        $this->items = [];
+    }
  }
