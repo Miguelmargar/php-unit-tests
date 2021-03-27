@@ -3,38 +3,42 @@
 
     class QueueTest extends TestCase {
 
+        protected $queue;
+
+        // this method creates the fixture to be used in the rest
+        // of the test methods
+        protected function setUp(): void {
+            // no need to load class file for Queue due to autoload
+            $this->queue = new Queue;
+        }
+
+        // Used to clear after a test method - mainly used to clear
+        // memory if loads of objects where used and were consuming
+        // a lot of memory - most of the time won't need to use it
+        protected function tearDown(): void {
+            unset($this->queue);
+        }
+
         public function testNewQueueIsEmpty() {
-            // no need to load class file due to autoload
-            $queue = new Queue;
 
-            $this->assertEquals(0, $queue->getCount());
-
-            return $queue;
+            $this->assertEquals(0, $this->queue->getCount());
         }
 
-        /**
-        * @depends testNewQueueIsEmpty
-        */
-        public function testAnItemIsAddedToTheQueue(Queue $queue) {
-            // due to the doc block obove we can pass the $queue variable to this method coming
-            // from the first method to avoid repetition.
-            // This method test is now known as a consumer and the one above providing the var is
-            // now known as a producer.
-            $queue->push('green');
+        public function testAnItemIsAddedToTheQueue() {
 
-            $this->assertEquals(1, $queue->getCount());
+            $this->queue->push('green');
 
-            return $queue;
+            $this->assertEquals(1, $this->queue->getCount());
+
         }
 
-        /**
-        * @depends testAnItemIsAddedToTheQueue
-        */
-        public function testAnItemIsRemovedFromTheQueue(Queue $queue) {
+        public function testAnItemIsRemovedFromTheQueue() {
 
-            $item = $queue->pop();
+            $this->queue->push('green');
 
-            $this->assertEquals(0, $queue->getCount());
+            $item = $this->queue->pop();
+
+            $this->assertEquals(0, $this->queue->getCount());
             $this->assertEquals('green', $item);
         }
 
