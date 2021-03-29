@@ -33,4 +33,17 @@
             // Pass this result to the assert statement
             $this->assertIsString($result);
         }
+
+        public function testPrefixedTokenStartsWithPrefix() {
+            $item = new Item;
+
+            $reflector = new ReflectionClass(Item::class);
+
+            $method = $reflector->getMethod('getPrefixToken');
+            $method->setAccessible(true);
+
+            $result = $method->invokeArgs($item, ['example']);
+
+            $this->assertStringStartsWith('example', $result);
+        }
     }
