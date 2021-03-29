@@ -55,4 +55,30 @@
 
             $this->assertTrue($user->notify("Hello"));
         }
+
+        // Tests
+        public function testCannotNotifyUserWithNoEmail() {
+            $user = new User;
+
+            // The below forces the mock object to return an exception
+            // but if we want to test the real object code and not the mock
+            // object the below is not needed
+            // $mock_mailer = $this->createMock(Mailer::class);
+            // $mock_mailer->method("sendMessage")
+                        // ->will($this->throwException(new Exception));
+
+            // Use below if we want to test the real Mailer obj code inside a mock obj
+            $mock_mailer = $this->getMockBuilder(Mailer::class)
+                                // bellow allows all methods in class to run
+                                ->setMethods(null)
+                                // below tells what methods to be stubbed and not run
+                                // ->setMethods(["sendMessage"])
+                                ->getMock();
+
+            $user->setMailer($mock_mailer);
+
+            $this->expectException(Exception::class);
+
+            $user->notify("Hello");
+        }
     }
