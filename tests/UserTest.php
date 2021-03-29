@@ -36,13 +36,23 @@
         public function testNotificationIsSent() {
             $user = new User;
 
+            // if you don't want the original Mailer class to run
+            // Creates a mock object of that class
             $mock_mailer = $this->createMock(Mailer::class);
-            $mock_mailer->method('sendMessage')->willReturn(true);
+            // expects is checking that the method below is used at least once
+            // different methods available like never()
+            $mock_mailer->expects($this->once())
+                        ->method('sendMessage')
+                        // To test argument matches - different matching methods available
+                        // These methods are in the phpunit source code
+                        ->with($this->equalTo("david@example.com"), $this->equalTo("Hello"))
+                        // Overrides the value mock Mailer obj returns
+                        ->willReturn(true);
 
             $user->setMailer($mock_mailer);
 
-            $user->email = "dave@example.com";
+            $user->email = "david@example.com";
 
-            $this->assertTrue($user->notify("hello"));
+            $this->assertTrue($user->notify("Hello"));
         }
     }
