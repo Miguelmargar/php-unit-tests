@@ -81,4 +81,5 @@
 
             $user->notify("Hello");
         }
+
     }
